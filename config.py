@@ -106,7 +106,8 @@ if not PATH_ROOT_LOCAL.exists():
 PATH_ROOT_DRIVE_DS = PATH_ROOT_DRIVE/'Datasets'
 PATH_IMAGES        = PATH_ROOT_LOCAL/'images'
 PATH_FOLDS         = PATH_ROOT_DRIVE/'Folds/Flare/'
-PATH_RES           = PATH_PROJECT #Path('./') #PATH_ROOT_DRIVE/'Results/Flare'
+# PATH_RES           = PATH_PROJECT 
+PATH_RES = PATH_ROOT_DRIVE/'Results/Flare'
 
 PATH_FLCATALOG = PATH_ROOT_DRIVE_DS/f'Events_Catalogs/flare_catalog_2023_04__1986_01.csv'
 PATH_CR_RATES  = PATH_ROOT_DRIVE_DS/'Meta/fl_climatology.pkl'
