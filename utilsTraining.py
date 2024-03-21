@@ -95,7 +95,7 @@ class ModelInstantier2(ModelInstantier):
       tag += '_NoWght'
     if self.foldTag != '':
       tag += f'x{self.foldTag}'
-    if 'optimizers' in self.buildModelParams.keys():
+    if 'optimizer' in self.buildModelParams.keys():
       tag += f'_{self._optimTag()}'
     if self.extraNameTag is not None:
       tag += f'_{self.extraNameTag}'
