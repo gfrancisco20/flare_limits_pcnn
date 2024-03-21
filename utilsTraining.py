@@ -46,7 +46,7 @@ class ModelInstantier2(ModelInstantier):
     self.extraNameTag = extraNameTag
     
   def _optimTag(self):
-    optConf = self.buildModelParams['optimizer']
+    optConf = self.buildModelParams['optimizer'].get_config()
     name = optConf['name'][0] + optConf['name'][-1]
     lr = optConf['learning_rate']
     lr = f'{lr:.0e}'
