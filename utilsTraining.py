@@ -120,7 +120,7 @@ def setUpResultFolder(models,
                       batchSize = None,
                       saveModel = False
                       ):
-  if pathRes != str:
+  if type(pathRes) != str:
     pathRes = pathRes.as_posix()
   if continuingFolder is None:
     #creating a new result folder
