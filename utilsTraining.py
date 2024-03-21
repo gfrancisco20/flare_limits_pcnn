@@ -52,9 +52,12 @@ class ModelInstantier2(ModelInstantier):
     lr = f'{lr:.0e}'
     lr = f'{lr[0]}e{lr[-1]}'
     if 'weight_decay' in optConf.keys():
-      wd = optConf['weight_decay']
-      wd = f'{wd:.0e}'
-      wd = f'D{wd[0]}e{wd[-1]}'
+      if optConf['weight_decay'] is not None:
+        wd = optConf['weight_decay']
+        wd = f'{wd:.0e}'
+        wd = f'D{wd[0]}e{wd[-1]}'
+      else:
+        wd = ''
     else:
       wd = ''
     optimTag = name + lr + wd
@@ -257,6 +260,71 @@ def printTrainingResults(historyData, cat = ['']):
       if m[:2] == 'va':
         print(f'Val   {m}{cat} : ', historyData[f'{m}{cat}'])
     
+# def saveTrainingResults(resDir, res, best, bestCVCrossEpoch, full_name_comb, cv_K):
+#   metrics = res[full_name_comb][0].columns
+#   #===================================================
+#   # CV SPECIFIC
+#   if cv_K is not None:
+#     dfRes = res[full_name_comb][0]
+#     tmp = {'model': full_name_comb}
+#     for col in [col for col in metrics]:
+#       # feeling nan arrays with 0 --> find better? (not relevant for all metrics)
+#       mtc = np.array([res[full_name_comb][kFold][col].fillna(0).values for kFold in range(cv_K)])
+#       dfRes[col] = np.mean(mtc,axis=0)
+#       dfRes[col+'_std'] = np.std(mtc,axis=0)
+#       dfRes[col+'_min'] = np.min(mtc,axis=0)
+#       dfRes[col+'_max'] = np.max(mtc,axis=0)
+#       if col in MIN_METRICS:
+#         mtcCVCE = np.min(mtc,axis=1)
+#         mtcCVCE_epcs = reduce(lambda x,y: str(x)+'x'+str(y),np.argmin(mtc,axis=1))
+#       else:
+#         mtcCVCE = np.max(mtc,axis=1)
+#         mtcCVCE_epcs = reduce(lambda x,y: str(x)+'x'+str(y),np.argmax(mtc,axis=1))
+#       tmp[col] = np.mean(mtcCVCE)
+#       tmp[col+'_std'] = np.std(mtcCVCE)
+#       tmp[col+'_min'] = np.min(mtcCVCE)
+#       tmp[col+'_max'] = np.max(mtcCVCE)
+#       tmp[col+'_epcs'] = mtcCVCE_epcs
+#     if not Path(resDir+'/bestsCVCrossEpoch.csv').exists():
+#         bestCVCrossEpoch = pd.DataFrame(tmp,index=[0])
+#     else:
+#         if bestCVCrossEpoch is None: bestCVCrossEpoch = pd.read_csv(resDir+f'/bestsCVCrossEpoch.csv')
+#         # bestCVCrossEpoch = bestCVCrossEpoch.append(tmp, ignore_index=True)
+#         bestCVCrossEpoch = pd.concat([bestCVCrossEpoch,pd.DataFrame(tmp,index = range(len(bestCVCrossEpoch),len(tmp)))],axis=0,ignore_index=True)
+#     bestCVCrossEpoch.to_csv(resDir+f'/bestsCVCrossEpoch.csv',index=False)
+#     res[full_name_comb] = [dfRes] # --> dropping individual kfold resutls
+#   #===================================================
+#   # GENERAL
+#   res[full_name_comb] = res[full_name_comb][0]
+#   tmp = {'model': full_name_comb}
+#   tmp.update({col : np.max(res[full_name_comb][col]) \
+#                 for col in metrics \
+#                   if col not in MIN_METRICS})
+#   tmp.update({col : np.min(res[full_name_comb][col]) \
+#               for col in MIN_METRICS if col in res[full_name_comb].columns} )
+#   tmp.update({col+'_epc' : np.argmax(res[full_name_comb][col]) \
+#                 for col in metrics \
+#                   if col not in MIN_METRICS})
+#   tmp.update({col+'_epc' : np.argmin(res[full_name_comb][col]) \
+#               for col in MIN_METRICS if col in res[full_name_comb].columns} )
+#   #===================================================
+#   # CV SPECIFIC
+#   if cv_K is not None:
+#     # CV specific
+#     for cvStat in ['_std','_min','_max']:
+#       tmp.update({col+cvStat : res[full_name_comb].loc[tmp[col+'_epc']][col+cvStat] \
+#                     for col in metrics})
+  
+#   if not Path(resDir+'/bests.csv').exists():
+#     best = pd.DataFrame(tmp, index=[0])
+#   else:
+#     if best is None: best = pd.read_csv(resDir+f'/bests.csv')
+#     # best = best.append(tmp, ignore_index=True)
+#     best = pd.concat([best,pd.DataFrame(tmp,index = range(len(best),len(tmp)))],axis=0,ignore_index=True)
+#   best.to_csv(resDir+f'/bests.csv',index=False)
+#   res[full_name_comb].to_csv(resDir+f'/training_{full_name_comb}.csv',index=True)
+#   return res, best, bestCVCrossEpoch
+
 def saveTrainingResults(resDir, res, best, bestCVCrossEpoch, full_name_comb, cv_K):
   metrics = res[full_name_comb][0].columns
   #===================================================
@@ -287,7 +355,7 @@ def saveTrainingResults(resDir, res, best, bestCVCrossEpoch, full_name_comb, cv_
     else:
         if bestCVCrossEpoch is None: bestCVCrossEpoch = pd.read_csv(resDir+f'/bestsCVCrossEpoch.csv')
         # bestCVCrossEpoch = bestCVCrossEpoch.append(tmp, ignore_index=True)
-        bestCVCrossEpoch = pd.concat([bestCVCrossEpoch,pd.DataFrame(tmp,index = range(len(bestCVCrossEpoch),len(tmp)))],axis=0,ignore_index=True)
+        bestCVCrossEpoch = pd.concat([bestCVCrossEpoch,pd.DataFrame(tmp,index = [len(bestCVCrossEpoch)])],axis=0,ignore_index=True)
     bestCVCrossEpoch.to_csv(resDir+f'/bestsCVCrossEpoch.csv',index=False)
     res[full_name_comb] = [dfRes] # --> dropping individual kfold resutls
   #===================================================
@@ -317,7 +385,9 @@ def saveTrainingResults(resDir, res, best, bestCVCrossEpoch, full_name_comb, cv_
   else:
     if best is None: best = pd.read_csv(resDir+f'/bests.csv')
     # best = best.append(tmp, ignore_index=True)
-    best = pd.concat([best,pd.DataFrame(tmp,index = range(len(best),len(tmp)))],axis=0,ignore_index=True)
+    best = pd.concat([best,pd.DataFrame(tmp,index = [len(best)])],axis=0,ignore_index=True)
   best.to_csv(resDir+f'/bests.csv',index=False)
+  
+  
   res[full_name_comb].to_csv(resDir+f'/training_{full_name_comb}.csv',index=True)
   return res, best, bestCVCrossEpoch
