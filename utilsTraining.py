@@ -105,8 +105,9 @@ class ModelInstantier2(ModelInstantier):
     fullname = f'{self.name}_'
     fullname += reduce(lambda x,y: f'{x}x{y}',
                        [f'{channel:0>4}' for channel in channels]) 
+    
+    fullname += self._parammetersTag()
     fullname += f'_{h}'
-    fullname += '_' + self._parammetersTag()
     return fullname
 
 def setUpResultFolder(models, 
