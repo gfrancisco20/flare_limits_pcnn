@@ -106,7 +106,7 @@ class ModelInstantier2(ModelInstantier):
     
     
     fullname += self._parammetersTag()
-    
+    fullname += '_'
     fullname += reduce(lambda x,y: f'{x}x{y}',
                        [f'{channel:0>4}' for channel in channels]) 
     
