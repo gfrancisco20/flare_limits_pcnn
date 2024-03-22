@@ -102,11 +102,14 @@ class ModelInstantier2(ModelInstantier):
     return  tag
 
   def fullNameFunc(self, channels, h): 
-    fullname = f'{self.name}_'
+    fullname = f'{self.name}'
+    
+    
+    fullname += self._parammetersTag()
+    
     fullname += reduce(lambda x,y: f'{x}x{y}',
                        [f'{channel:0>4}' for channel in channels]) 
     
-    fullname += self._parammetersTag()
     fullname += f'_{h}'
     return fullname
 
