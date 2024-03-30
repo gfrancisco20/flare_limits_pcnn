@@ -69,7 +69,7 @@ def fullDiskPerformance(fdPredictions, startingDates, filterNames, includeFolds,
   perfTest = initPerfTest()
   for startingDate in startingDates:
     for filterName in filterNames: # startDates filterNames
-      for modelName in fdPredictions.keys(): # ['M+_mpf_Persistant','M+_mpf_PTx8xRtdAllxEasyposX_A2e5x25epc_blos_24',]
+      for modelName in fdPredictions.keys(): # ['M+_mpf_Persistent','M+_mpf_PTx8xRtdAllxEasyposX_A2e5x25epc_blos_24',]
         dfRes = fdPredictions[modelName].copy()
 
         filters = filterCollection(dfRes.copy())
