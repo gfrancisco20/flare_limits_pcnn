@@ -22,6 +22,7 @@ class Extract_patches_Layer(tf.keras.layers.Layer):
         nRow = 224 // 112
         nCol = 448 // 112
         return (input_shape[0], nRow, nCol, 112*112*input_shape[3])
+custom_objects_for_model_loading = {'Extract_patches_Layer': Extract_patches_Layer}
 
 def initPerfTest(typePerf = 'fd'):
   """
