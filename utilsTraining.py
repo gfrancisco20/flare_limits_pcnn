@@ -179,7 +179,8 @@ def setUpResultFolder(models,
     full_name_combs  = [model.fullNameFunc(channels,h) for model, channels, h in models]
     new_combs = [comb for comb in full_name_combs if comb not in log['model'].values]
     log_new = pd.DataFrame({'model':new_combs, 'status': np.zeros(len(new_combs),dtype=int), 'duration':  np.zeros(len(new_combs),dtype=str)})
-    log = log.append(log_new).set_index('model')
+    # log = log.append(log_new).set_index('model')
+    log = pd.concat([log,log_new],axis=0).set_index('model')
     log.to_csv(resDir + '/log.csv')
   return log, resDir, modelDir, mtcDict
     

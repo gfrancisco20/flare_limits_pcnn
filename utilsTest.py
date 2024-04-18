@@ -113,7 +113,8 @@ def fullDiskPerformance(fdPredictions, startingDates, filterNames, includeFolds,
               if len(perfTest[(perfTest['model']==modelName) \
                               & (perfTest['filter']==filterName) \
                               & (perfTest['thd']==thd) \
-                              & (perfTest['modelFdId']==modelFdId)
+                              & (perfTest['modelFdId']==modelFdId) \
+                              & (perfTest['startingDate']==startingDate) \
                               ])>0:
                 skip = True
 
