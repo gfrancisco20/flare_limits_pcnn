@@ -76,7 +76,8 @@ __all__ = [
     'F_PATH_TEST',
     'F_PATH_PREDS',
     'F_PATH_LABEL_PATCHES',
-    'initProject'
+    'initProject',
+    'F_PATH_PREDS_MODEL'
     ]
 
 PATH_SUNDL = '../sundl'
