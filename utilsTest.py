@@ -51,6 +51,9 @@ def initPerfTest(typePerf = 'fd'):
     'p':[],
     'n':[],
     'c':[],
+    'npv':[],
+    'tnr':[],
+    'mk':[],
     'tot':[],
     'bal_pos':[],
     'switch_rate':[]
@@ -135,10 +138,14 @@ def fullDiskPerformance(fdPredictions, startingDates, filterNames, includeFolds,
               tot = p+n
               tss = tp / (tp+fn) + tn / (tn+fp) - 1
               hss = 2*(tp*tn - fn*fp) / (p*(fn+tn) + n*(tp+fp))
-              # nmcc = (tp*tn - fp*fn) / np.sqrt((tp+fp)*(p)*(n)*(tn+fn))
+              # mcc = (tp*tn - fp*fn) / np.sqrt((tp+fp)*(p)*(n)*(tn+fn))
               mcc = (tp*tn - fp*fn) / np.sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn))
 
               prec = tp / (tp+fp)
+              npv = tn / (tn+fn)
+              tnr = tn / n
+              
+              mk = npv +  prec - 1
               far = 1-prec
               rec = tp / p
               f1 = 2*prec*rec / (prec+rec)
@@ -180,6 +187,9 @@ def fullDiskPerformance(fdPredictions, startingDates, filterNames, includeFolds,
                 'p':p,
                 'n':n,
                 'c':c,
+                'npv':npv,
+                'tnr':tnr,
+                'mk':mk,
                 'tot':tot,
                 'bal_pos':bal_pos,
                 'switch_rate':switch_rate},index=[len(perfTest)+1])], axis=0)
@@ -252,6 +262,9 @@ def patchesPerformance(ptPredictions, startingDates, filterNames, includeFolds, 
                 hss = 2*(tp*tn - fn*fp) / (p*(fn+tn) + n*(tp+fp))
                 mcc = (tp*tn - fp*fn) / np.sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn))
                 prec = tp / (tp+fp)
+                npv = tn / (tn+fn)
+                mk = npv +  prec - 1
+                tnr = tn / n
                 far = 1-prec
                 rec = tp / p
                 f1 = 2*prec*rec / (prec+rec)
@@ -298,6 +311,9 @@ def patchesPerformance(ptPredictions, startingDates, filterNames, includeFolds, 
                                                             'fn':fn,
                                                             'p':p,
                                                             'n':n,
+                                                            'npv':npv,
+                                                            'tnr':tnr,
+                                                            'mk':mk,
                                                             'tot':tot,
                                                             'bal_pos':bal_pos,
                                                             'switch_rate':switch_rate
@@ -323,7 +339,11 @@ def patchesPerformance(ptPredictions, startingDates, filterNames, includeFolds, 
                 tot = p+n
                 tss = tp / (tp+fn) + tn / (tn+fp) - 1
                 hss = 2*(tp*tn - fn*fp) / (p*(fn+tn) + n*(tp+fp))
+                mcc = (tp*tn - fp*fn) / np.sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn))
                 prec = tp / (tp+fp)
+                npv = tn / (tn+fn)
+                mk = npv +  prec - 1
+                tnr = tn / n
                 far = 1-prec
                 rec = tp / p
                 f1 = 2*prec*rec / (prec+rec)
@@ -362,6 +382,9 @@ def patchesPerformance(ptPredictions, startingDates, filterNames, includeFolds, 
                                                               'fn':fn,
                                                               'p':p,
                                                               'n':n,
+                                                              'npv':npv,
+                                                              'tnr':tnr,
+                                                              'mk':mk,
                                                               'tot':tot,
                                                               'bal_pos':bal_pos,
                                                               'switch_rate':switch_rate},index=[len(perfTestPtTot)+1])], axis=0)
