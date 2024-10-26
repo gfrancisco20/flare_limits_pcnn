@@ -12,19 +12,19 @@ Notebooks are organized to :
 
 ## Notebooks
 
-### [0_CV_Folds](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/flare_limits_pcnn/0_CV_Folds.ipynb)
+### [0_CV_Folds](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/0_CV_Folds.ipynb)
 Prepare and store indepedant folds for cross-validation
 
-### [1_Training](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/flare_limits_pcnn/1_Training.ipynb)
+### [1_Training](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/1_Training.ipynb)
 CV-training on the folds resulting from the previous notebook
 
-### [2_Model_Selection](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/flare_limits_pcnn/2_Model_Selection.ipynb)
+### [2_Model_Selection](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/2_Model_Selection.ipynb)
 Analysis of the CV results and model selection
 
-### [3_Test_Predictions](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/flare_limits_pcnn/3_Test_Predictions.ipynb)
+### [3_Test_Predictions](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/3_Test_Predictions.ipynb)
 Computation and storage of the predictions on the operational tests set
 
-### [4_Test_Evaluation](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/flare_limits_pcnn/4_Test_Evaluation.ipynb)
+### [4_Test_Evaluation](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/4_Test_Evaluation.ipynb)
 Test performace analysis, including :
 - full-disk level performances
 - patch/sector level performances
@@ -33,7 +33,7 @@ Test performace analysis, including :
 - performances on windows where the activity is the same as the previous one (NC-windows)
 - persistent relative metrics
 
-### [5_Explainability](https://github.com/gfrancisco20/sundl/blob/master/notebooks/flare_limits_pcnn/5_Explainability.ipynb)
+### [5_Explainability](https://github.com/gfrancisco20/flare_limits_pcnn/blob/master/5_Explainability.ipynb)
 Visual explainability results of the models prediction and estimations of forecasted event positions
 
 ## Data
