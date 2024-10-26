@@ -1,7 +1,7 @@
 # PCNN and Flare Forecasting Models Limitations
 
 This folder shows how to reproduce the results of the paper :  
-[Limits of solar flare forecasting models and new deep learning approach](https://doi.org/10.22541/essoar.170688972.24631782/v1)
+[Limits of solar flare forecasting models and new deep learning approach](https://doi.org/10.22541/essoar.170688972.24631782/v3)
 
 Notebooks are organized to :
 - prepare independant training and validation folds for full-disk forecasts
